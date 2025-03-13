@@ -1,27 +1,33 @@
-import NavbarComponent from "./components/NavbarComponent";
-import AddTaskComponent from "./components/AddTaskComponent";
-import MyTaskComponent from "./components/MyTaskComponent";
+import { Routes, Route } from "react-router";
+import { Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import { getCurrentUser } from "./services/authService";
 
 function App() {
+  const PrivateRoute = ({ children }) => {
+    return getCurrentUser() ? children : <Navigate to="/signin" />;
+  };
+
   return (
-    <div className="h-full">
+    <>
       <Toaster />
-      {/* navbar component */}
-      <NavbarComponent />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <HomePage />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/signin" element={<LoginPage />} />
 
-      {/* task container */}
-      <div className="flex w-full h-full gap-8 py-6 px-6">
-        {/* add task component */}
-        <AddTaskComponent />
-
-        {/* my task component */}
-        <div className="flex flex-col gap-3 flex-3/4 bg-green-100 rounded-md p-4">
-          <h1 className="text-green-900 font-semibold text-lg">My Tasks</h1>
-          <MyTaskComponent />
-        </div>
-      </div>
-    </div>
+        {/* prevent user after login */}
+        <Route path="*" element={<Navigate to="/signin" />} />
+      </Routes>
+    </>
   );
 }
 
