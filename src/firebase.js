@@ -4,12 +4,12 @@ import { getFirestore } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGE_SENDER_ID,
-    appId: import.meta.env.VITE_FIREBASE_APP_ID
+  apiKey: "AIzaSyC1JBacly6IumiN91PqORptrp8uB0Ikxqo",
+  authDomain: "forum6-to-do.firebaseapp.com",
+  projectId: "forum6-to-do",
+  storageBucket: "forum6-to-do.firebasestorage.app",
+  messagingSenderId: "1012886360600",
+  appId: "1:1012886360600:web:457d1420ae87c21312a96d"
 };
 
 // Initialize Firebase

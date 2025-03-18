@@ -1,5 +1,5 @@
-import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "firebase/firestore";
-import { db } from "../firebase";
+import { collection, addDoc, query, getDocs, updateDoc, deleteDoc, doc , where} from "firebase/firestore";
+import { auth,db } from "../firebase";
 
 // Fungsi untuk menambahkan task ke Firestore
 export const addTaskToFirestore = async (task) => {
@@ -13,16 +13,20 @@ export const addTaskToFirestore = async (task) => {
 };
 
 export const getAllTasks = async () => {
+    const user =auth.currentUser;
+    if(!user) return [];
+
     try {
-        const querySnapshot = await getDocs(collection(db, "tasks"));
-        const tasks = querySnapshot.docs.map((doc) => ({
+        const q = query(collection(db, "tasks"), where("userID", "==", user.uid));
+        const querySnapshot = await getDocs(q);
+
+        return querySnapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
         }));
-        return tasks;
     } catch (error) {
         console.error("Error fetching tasks:", error);
-        throw error;
+        return [];
     }
 };
 

@@ -3,7 +3,9 @@ import LogoImg from "../assets/logo.png";
 import { logout } from "../services/authService";
 import { auth } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { useNavigate } from "react-router";
+import { useNavigate, NavLink } from "react-router";
+import Profile from "../pages/Profile";
+
 
 const NavbarComponent = () => {
   const [user, setUser] = useState(null);
@@ -22,33 +24,33 @@ const NavbarComponent = () => {
   };
 
   return (
-    <nav className="flex w-full justify-between items-center bg-green-100 shadow-md py-3 px-10 fixed">
+    <nav className="flex w-full justify-between items-center bg-blue-200 shadow-md py-3 px-10 fixed">
       {/* Logo */}
-      <div className="flex gap-1 justify-center items-center cursor-pointer">
-        <img src={LogoImg} alt="logo-image" className="h-5 w-8" />
-        <p className="text-lg font-semibold text-green-600 hover:text-green-700 transition ease-in-out">
-          ToDoSome
-        </p>
-      </div>
+      <NavLink to="/">
+        <div className="flex gap-1 justify-center items-center cursor-pointer">
+          <p className="text-lg font-semibold text-blue-600 hover:text-blue-700 transition ease-in-out">
+            Task List
+          </p>
+        </div>
+      </NavLink>
 
       {/* Navigation Menu */}
-      <div className="flex gap-6 justify-center items-center text-green-900 font-semibold">
-        <a href="#" className="text-sm">
-          My ToDo
-        </a>
+      <div className="flex gap-6 justify-center items-center text-blue-900 font-semibold">
         {user ? (
           <div className="flex items-center gap-3">
-            {user.photoURL ? (
-              <img
-                src={user?.photoURL}
-                alt="profile"
-                className="w-8 h-8 rounded-full"
-              />
-            ) : (
-              <div className="w-8 h-8 rounded-full bg-green-800 text-white flex items-center justify-center font-semibold">
-                {user.email.charAt(0).toUpperCase()}
-              </div>
-            )}
+            <NavLink to="/profile">
+              {user.photoURL ? (
+                <img
+                  src={user?.photoURL}
+                  alt="profile"
+                  className="w-8 h-8 rounded-full"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-blue-800 text-white flex items-center justify-center font-semibold">
+                  {user.email.charAt(0).toUpperCase()}
+                </div>
+              )}
+            </NavLink>
             <button
               onClick={handleLogout}
               className="bg-red-600 text-white text-sm py-2 px-4 rounded-md hover:bg-red-500 transition ease-in-out"
@@ -59,7 +61,7 @@ const NavbarComponent = () => {
         ) : (
           <a
             href="/signin"
-            className="bg-green-800 text-white text-sm py-2 px-6 rounded-md hover:bg-green-700 transition ease-in-out"
+            className="bg-blue-800 text-white text-sm py-2 px-6 rounded-md hover:bg-green-700 transition ease-in-out"
           >
             Login
           </a>

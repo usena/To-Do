@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { loginWithEmail, loginWithGoogle } from "../services/authService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 import NavbarComponent from "../components/NavbarComponent";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
@@ -50,7 +50,7 @@ const LoginPage = () => {
     <>
       <NavbarComponent />
       <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-lg text-green-800 font-semibold mb-4">
+        <h1 className="text-lg text-blue-800 font-semibold mb-4">
           Please login!
         </h1>
         <form className="flex flex-col gap-3 w-80" onSubmit={handleEmailLogin}>
@@ -70,13 +70,18 @@ const LoginPage = () => {
           />
           <button
             type="submit"
-            className="bg-green-600 text-white p-2 rounded-md hover:bg-green-700 transition"
+            className="bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition"
           >
             Login
           </button>
         </form>
 
-        <span className="my-4 text-sm font-bold text-green-600">
+        <span className="my-4 text-sm font-bold text-grey-600">
+          Do not have an account?
+          <NavLink to="/signup" className="text-blue-800 hover:underline ml-1">Signup</NavLink>
+        </span>
+
+        <span className="my-4 text-sm font-bold text-blue-600">
           --- Or ---
         </span>
 
